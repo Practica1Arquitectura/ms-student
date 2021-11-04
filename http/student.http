@@ -1,0 +1,24 @@
+### Test Student
+GET http://localhost:6945/v1/api/student/test
+Accept: application/json
+
+### Registrar Estudiante
+POST http://localhost:6945/v1/api/student/save
+Content-Type: application/json
+
+{
+  "name":"Jorge Luis",
+  "lastName":"Alejo",
+  "phone": "77767743"
+}
+
+### Obtener todos los estudiantes
+GET http://localhost:6945/v1/api/student/all
+Accept: application/json
+
+### Obtener estudiante por Id
+GET http://localhost:6945/v1/api/student?studentId=1
+Accept: application/json
+
+
+
