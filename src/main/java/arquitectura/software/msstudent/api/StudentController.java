@@ -22,6 +22,7 @@ public class StudentController {
 
     @RequestMapping(path = "/save",method = RequestMethod.POST)
     public Student saveStudent(@RequestBody Student student){
+        System.out.println("Registrando Estudiante ");
         return studentRepository.save(student);
     }
 

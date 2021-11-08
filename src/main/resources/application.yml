@@ -1,11 +1,11 @@
 spring:
   application:
-    name: ms-student
+    name: ms-student-sin-config-server
   h2:
     console:
       enabled: true
 server:
-  port: 6945
+  port: 6666
 
 eureka:
   instance:
