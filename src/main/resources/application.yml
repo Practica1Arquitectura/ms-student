@@ -1,11 +1,13 @@
 spring:
   application:
-    name: ms-student-sin-config-server
+    name: msStudent
+  zipkin:
+    base-url: ${ZIPKIN_URL:http://localhost:9411}
   h2:
     console:
       enabled: true
 server:
-  port: 6666
+  port: ${SERVER_PORT:6545}
 
 eureka:
   instance:
@@ -16,4 +18,4 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     serviceUrl:
-      defaultZone: http://localhost:8763/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8763/eureka}

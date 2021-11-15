@@ -2,6 +2,8 @@ package arquitectura.software.msstudent.api;
 
 import arquitectura.software.msstudent.entity.Student;
 import arquitectura.software.msstudent.repository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/v1/api/student")
 public class StudentController {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
 
     @Autowired
     private StudentRepository studentRepository;
@@ -22,7 +26,7 @@ public class StudentController {
 
     @RequestMapping(path = "/save",method = RequestMethod.POST)
     public Student saveStudent(@RequestBody Student student){
-        System.out.println("Registrando Estudiante ");
+        LOGGER.info("Registrando el usuario: con los siguientes datos, {} ",student);
         return studentRepository.save(student);
     }
 
