@@ -1,0 +1,73 @@
+version: "2.4"
+services:
+  ms-discovery:
+    image: ms-discovery:0.0.1
+    mem_limit: 150m
+    ports:
+      - "8763:8763"
+    #environment:
+    #  - "EUREKA_URI=http://192.168.0.4:8763/eureka"
+  ms-config_server:
+    image: ms-config-server:0.0.1
+    mem_limit: 150m
+    ports:
+      - "8887:8887"
+    environment:
+      - "ZIPKIN_URL=http://192.168.0.4:9411"
+      - "EUREKA_URI=http://192.168.0.4:8763/eureka"
+    depends_on:
+      ms-discovery:
+        condition: service_started
+  ms-gateway:
+    image: ms-gateway:0.0.1
+    mem_limit: 150m
+    ports:
+      - "8181:8181"
+    environment:
+      - "ZIPKIN_URL=http://192.168.0.4:9411"
+      - "EUREKA_URI=http://192.168.0.4:8763/eureka"
+    depends_on:
+      ms-discovery:
+        condition: service_started
+  ms-customer:
+    image: ms-student:0.0.1
+    mem_limit: 200m
+    ports:
+      - "6945:6945"
+    environment:
+      - "ZIPKIN_URL=http://192.168.0.4:9411"
+      - "EUREKA_URI=http://192.168.0.4:8763/eureka"
+      - "URI_CONFIG=http://192.168.0.4:8887"
+    depends_on:
+      ms-discovery:
+        condition: service_started
+      ms-config_server:
+        condition: service_started
+  ms-product:
+    image: ms-teacher:0.0.1
+    mem_limit: 200m
+    ports:
+      - "7878:7878"
+    environment:
+      - "ZIPKIN_URL=http://192.168.0.4:9411"
+      - "EUREKA_URI=http://192.168.0.4:8763/eureka"
+      - "URI_CONFIG=http://192.168.0.4:8887"
+    depends_on:
+      ms-discovery:
+        condition: service_started
+      ms-config_server:
+        condition: service_started
+  ms-sale:
+    image: ms-course:0.0.1
+    mem_limit: 200m
+    ports:
+      - "8743:8743"
+    environment:
+      - "ZIPKIN_URL=http://192.168.0.4:9411"
+      - "EUREKA_URI=http://192.168.0.4:8763/eureka"
+      - "URI_CONFIG=http://192.168.0.4:8887"
+    depends_on:
+      ms-discovery:
+        condition: service_started
+      ms-config_server:
+        condition: service_started
