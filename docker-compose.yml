@@ -7,7 +7,9 @@ services:
       - "8763:8763"
     #environment:
     #  - "EUREKA_URI=http://192.168.0.4:8763/eureka"
-  ms-config_server:
+    volumes:
+      - "/opt/local/logs:/opt/arquitectura/logs"
+  ms-config-server:
     image: ms-config-server:0.0.1
     mem_limit: 150m
     ports:
@@ -15,6 +17,8 @@ services:
     environment:
       - "ZIPKIN_URL=http://192.168.0.4:9411"
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
+    volumes:
+      - "/opt/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
@@ -26,10 +30,12 @@ services:
     environment:
       - "ZIPKIN_URL=http://192.168.0.4:9411"
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
+    volumes:
+      - "/opt/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
-  ms-customer:
+  ms-student:
     image: ms-student:0.0.1
     mem_limit: 200m
     ports:
@@ -38,12 +44,14 @@ services:
       - "ZIPKIN_URL=http://192.168.0.4:9411"
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
       - "URI_CONFIG=http://192.168.0.4:8887"
+    volumes:
+    - "/opt/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
       ms-config_server:
         condition: service_started
-  ms-product:
+  ms-teacher:
     image: ms-teacher:0.0.1
     mem_limit: 200m
     ports:
@@ -52,12 +60,14 @@ services:
       - "ZIPKIN_URL=http://192.168.0.4:9411"
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
       - "URI_CONFIG=http://192.168.0.4:8887"
+    volumes:
+      - "/opt/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
       ms-config_server:
         condition: service_started
-  ms-sale:
+  ms-course:
     image: ms-course:0.0.1
     mem_limit: 200m
     ports:
@@ -66,6 +76,8 @@ services:
       - "ZIPKIN_URL=http://192.168.0.4:9411"
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
       - "URI_CONFIG=http://192.168.0.4:8887"
+    volumes:
+      - "/opt/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
