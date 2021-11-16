@@ -8,7 +8,7 @@ services:
     #environment:
     #  - "EUREKA_URI=http://192.168.0.4:8763/eureka"
     volumes:
-      - "/opt/local/logs:/opt/arquitectura/logs"
+      - "/tmp/local/logs:/opt/arquitectura/logs"
   ms-config-server:
     image: ms-config-server:0.0.1
     mem_limit: 150m
@@ -18,7 +18,7 @@ services:
       - "ZIPKIN_URL=http://192.168.0.4:9411"
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
     volumes:
-      - "/opt/local/logs:/opt/arquitectura/logs"
+      - "/tmp/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
@@ -31,7 +31,7 @@ services:
       - "ZIPKIN_URL=http://192.168.0.4:9411"
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
     volumes:
-      - "/opt/local/logs:/opt/arquitectura/logs"
+      - "/tmp/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
@@ -45,7 +45,7 @@ services:
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
       - "URI_CONFIG=http://192.168.0.4:8887"
     volumes:
-    - "/opt/local/logs:/opt/arquitectura/logs"
+      - "/tmp/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
@@ -61,7 +61,7 @@ services:
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
       - "URI_CONFIG=http://192.168.0.4:8887"
     volumes:
-      - "/opt/local/logs:/opt/arquitectura/logs"
+      - "/tmp/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
@@ -77,7 +77,7 @@ services:
       - "EUREKA_URI=http://192.168.0.4:8763/eureka"
       - "URI_CONFIG=http://192.168.0.4:8887"
     volumes:
-      - "/opt/local/logs:/opt/arquitectura/logs"
+      - "/tmp/local/logs:/opt/arquitectura/logs"
     depends_on:
       ms-discovery:
         condition: service_started
