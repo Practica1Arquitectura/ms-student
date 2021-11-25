@@ -33,6 +33,11 @@ public class StudentController {
     @RequestMapping(path = "/all",method = RequestMethod.GET)
     public List<Student> getAllStudent(){
         List<Student> students = studentRepository.findAll();
+        if(students.size()>0){
+            LOGGER.info("Se muestra los datos de todos los estudiantes");
+        }else {
+            LOGGER.warn("No se encontro ningun dato de los estudiantes");
+        }
         return students;
     }
 
@@ -40,9 +45,11 @@ public class StudentController {
     public Student getStudent(@RequestParam Integer studentId) throws Exception{
         Optional<Student> studentOptional = studentRepository.findById(studentId);
         if (studentOptional.isPresent()){
+            LOGGER.info("Se encontro al estudiante");
             Student student = studentOptional.get();
             return student;
         }else {
+            LOGGER.error("no se encontro al estudiante");
             throw new Exception("No se encuentra el usuario");
         }
     }
